@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { Video } from 'expo-av';
+import LanguageSelector from '../components/LanguageSelector';
 
 const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -38,8 +39,20 @@ const HomeScreen = () => {
     }
   }, [isPlaying]);
 
+  const [inputLanguage, setInputLanguage] = useState({ id: 1, name: 'English', flag: '🇺🇸' });
+  const [outputLanguage, setOutputLanguage] = useState({ id: 2, name: 'Spanish', flag: '🇪🇸' });
+
+  const handleInputLanguageChange = (language) => {
+    setInputLanguage(language);
+  };
+
+  const handleOutputLanguageChange = (language) => {
+    setOutputLanguage(language);
+  };
+
   return (
     <View style={styles.container}>
+      <LanguageSelector selectedLanguage={inputLanguage} onSelectLanguage={handleInputLanguageChange} />
       <TouchableOpacity onPress={togglePlay} activeOpacity={0.8}>
         <Animated.View style={[styles.video, { width: videoSize, height: videoSize }]}>
           <Video
@@ -52,6 +65,7 @@ const HomeScreen = () => {
           />
         </Animated.View>
       </TouchableOpacity>
+      <LanguageSelector selectedLanguage={outputLanguage} onSelectLanguage={handleOutputLanguageChange} />
     </View>
   );
 };
