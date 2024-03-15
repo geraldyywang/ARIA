@@ -22,8 +22,8 @@ const LanguageSelector = ({ selectedLanguage, onSelectLanguage }) => {
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <View style={styles.languageContainer}>
-          <Text>{selectedLanguage.flag}</Text>
-          <Text>{selectedLanguage.name}</Text>
+          <Text style={styles.languageText}>{selectedLanguage.flag}</Text>
+          <Text style={styles.languageText}>{selectedLanguage.name}</Text>
         </View>
       </TouchableOpacity>
       <Modal
@@ -34,7 +34,7 @@ const LanguageSelector = ({ selectedLanguage, onSelectLanguage }) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Select language</Text>
+            <Text style={styles.headerText}>Select Language</Text>
             <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
               <AntDesign name="close" size={24} color="black" />
             </TouchableOpacity>
@@ -43,9 +43,9 @@ const LanguageSelector = ({ selectedLanguage, onSelectLanguage }) => {
           <ScrollView>
             {languages.map((language) => (
               <TouchableOpacity key={language.id} onPress={() => handleLanguageSelect(language)}>
-                <View style={styles.languageOption}>
-                  <Text>{language.flag}</Text>
-                  <Text>{language.name}</Text>
+                <View style={[styles.languageOption, language.id === selectedLanguage.id && styles.selectedLanguageOption]}>
+                  <Text style={styles.languageFlag}>{language.flag}</Text>
+                  <Text style={styles.languageName}>{language.name}</Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -69,18 +69,26 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#eee',
   },
+  languageText: {
+    fontSize: 16,
+    marginLeft: 5,
+    marginRight: 5,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#fff',
     padding: 20,
     marginTop: 80,
+    borderTopLeftRadius: 20, // Round the top-left corner
+    borderTopRightRadius: 20, // Round the top-right corner
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    textAlign: 'center', // Center the text
   },
   headerText: {
     fontSize: 18,
@@ -100,6 +108,16 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
     marginVertical: 5,
+  },
+  selectedLanguageOption: {
+    backgroundColor: 'lightblue', // Change background color for selected language
+  },
+  languageFlag: {
+    fontSize: 20, // Adjust size as needed
+  },
+  languageName: {
+    fontSize: 16, // Adjust size as needed
+    marginLeft: 10,
   },
 });
 
