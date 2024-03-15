@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Animated, Text, TextInput } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Animated, Text, TextInput, Keyboard } from 'react-native';
 import { Video } from 'expo-av';
 import LanguageSelector from '../components/LanguageSelector';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
@@ -12,6 +12,13 @@ const HomeScreen = () => {
 
   const togglePlay = () => {
     setIsPlaying(prevState => !prevState);
+    handleTextSubmit(); // Submit the text when video is pressed
+  };
+
+  const handleTextSubmit = () => {
+    Keyboard.dismiss();
+    // Here you can handle the submission of the question text, for example, sending it to a server
+    console.log('Question submitted:', questionText);
   };
 
   useEffect(() => {
@@ -66,32 +73,41 @@ const HomeScreen = () => {
         <LanguageSelector selectedLanguage={selectedLanguage} onSelectLanguage={handleLanguageChange} />
       </View>
       <View style={styles.questionContainer}>
-        <MaskedView maskElement={<Text style={styles.questionText}>ASK ARIA</Text>}>
-          <LinearGradient // Add LinearGradient here
-              colors={['#38c9ac', '#6a40e6']} // Gradient colors
-              start={[0, 0]} // Gradient start point
-              end={[1, 1]} // Gradient end point
-              style={styles.gradient} // Style for the gradient
-            >
-            <Text style={styles.questionTextMask}>ASK ARIA</Text>
-          </LinearGradient>
-        </MaskedView>
+        <Text style={styles.questionText}>ASK ARIA</Text>
         <View style={styles.inputFieldWrapper}>
-          <LinearGradient
-            colors={['#38c9ac', '#6a40e6']} // Gradient colors
-            start={[0, 0]} // Gradient start point
-            end={[1, 1]} // Gradient end point
-            style={styles.inputFieldGradient} // Style for the gradient
-          >
             <TextInput
               style={styles.inputField}
               value={questionText}
               onChangeText={setQuestionText}
               placeholder="Question can be seen here"
-              placeholderTextColor="white" // Placeholder text color
-              selectionColor="white" // Selection color
+              placeholderTextColor="grey" // Placeholder text color
+              selectionColor="black" // Selection color
+              multiline={true}
+              textAlignVertical="top"
+              onSubmitEditing={handleTextSubmit}
             />
-          </LinearGradient>
+        </View>
+      </View>
+
+      <View style={styles.answerContainer}>
+        <View >
+
+            <Text style={styles.questionText}>ANSWER</Text>
+
+        </View>
+        <View style={styles.inputFieldWrapper}>
+            <TextInput
+              style={styles.answerField}
+              value={questionText}
+              onChangeText={setQuestionText}
+              placeholder="Answer can be seen here"
+              placeholderTextColor="grey" // Placeholder text color
+              selectionColor="white" // Selection color
+              multiline={true}
+              textAlignVertical="top"
+              onSubmitEditing={handleTextSubmit}
+            />
+          {/* </LinearGradient> */}
         </View>
       </View>
     </View>
@@ -116,24 +132,32 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     marginTop: 20, // Adjust as needed
-    width: '90%',
+    width: '100%',
     top: 100,
     alignItems: 'center',
     position: 'absolute',
   },
+  answerContainer: {
+    width: '100%',
+    bottom: 40,
+    alignItems: 'center',
+    position: 'absolute',
+  },
   questionText: {
-    fontSize: 60,
+    fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#06c49e',
   },
   questionTextMask: {
-    fontSize: 60,
+    fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 10,
     opacity: 0,
   },
   inputFieldWrapper: {
-    width: '100%',
+    maxWidth: 400,
+    width: '90%',
     alignItems: 'center',
   },
   inputFieldGradient: {
@@ -142,10 +166,27 @@ const styles = StyleSheet.create({
   },
   inputField: {
     width: '100%',
-    height: 40,
-    paddingHorizontal: 10,
-    color: 'white', // Text color
+    height: 85,
+    fontSize: 16,
+    lineHeight: 20,
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    color: 'black', // Text color
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
+  answerField: {
+    width: '100%',
+    height: 170,
+    fontSize: 16,
+    lineHeight: 20,
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    color: 'black', // Text color
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  
 });
 
 export default HomeScreen;
