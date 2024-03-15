@@ -7,12 +7,25 @@ const LanguageSelector = ({ selectedLanguage, onSelectLanguage }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const languages = [
-    { id: 1, name: 'English', flag: '🇺🇸' },
-    { id: 2, name: 'Spanish', flag: '🇪🇸' },
-    { id: 3, name: 'French', flag: '🇫🇷' },
+    { id: 1, name: 'Afrikaans', flag: '🇿🇦' },
+    { id: 2, name: 'Amharic', flag: '🇪🇹' },
+    { id: 3, name: 'Arabic', flag: '🇸🇾' },
+    { id: 4, name: 'Chinese', flag: '🇨🇳' },
+    { id: 5, name: 'Dari', flag: '🇦🇫' },
+    { id: 6, name: 'English', flag: '🇺🇸' },
+    { id: 7, name: 'French', flag: '🇫🇷' },
+    { id: 8, name: 'German', flag: '🇩🇪' },
+    { id: 9, name: 'Italian', flag: '🇮🇹' },
+    { id: 10, name: 'Japanese', flag: '🇯🇵' },
+    { id: 11, name: 'Korean', flag: '🇰🇷' },
+    { id: 12, name: 'Kurdish', flag: '🇮🇶' },
+    { id: 13, name: 'Pashto', flag: '🇦🇫' },
+    { id: 14, name: 'Somali', flag: '🇸🇴' },
+    { id: 15, name: 'Spanish', flag: '🇪🇸' },
+    { id: 16, name: 'Tigrinya', flag: '🇪🇷' },
     // Add more languages as needed
   ];
-
+  
   const handleLanguageSelect = (language) => {
     onSelectLanguage(language);
     setModalVisible(false);
@@ -110,7 +123,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   selectedLanguageOption: {
-    backgroundColor: 'rgb(56, 201, 172)', // Change background color for selected language
+    backgroundColor: 'lightblue', // Change background color for selected language
   },
   languageFlag: {
     fontSize: 20, // Adjust size as needed

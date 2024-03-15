@@ -39,20 +39,13 @@ const HomeScreen = () => {
     }
   }, [isPlaying]);
 
-  const [inputLanguage, setInputLanguage] = useState({ id: 1, name: 'English', flag: '🇺🇸' });
-  const [outputLanguage, setOutputLanguage] = useState({ id: 2, name: 'Spanish', flag: '🇪🇸' });
-
-  const handleInputLanguageChange = (language) => {
-    setInputLanguage(language);
-  };
-
-  const handleOutputLanguageChange = (language) => {
-    setOutputLanguage(language);
+  const [selectedLanguage, setSelectedLanguage] = useState({ id: 1, name: 'English', flag: '🇺🇸' });
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
   };
 
   return (
     <View style={styles.container}>
-      <LanguageSelector selectedLanguage={inputLanguage} onSelectLanguage={handleInputLanguageChange} />
       <TouchableOpacity onPress={togglePlay} activeOpacity={0.8}>
         <Animated.View style={[styles.video, { width: videoSize, height: videoSize }]}>
           <Video
@@ -65,7 +58,9 @@ const HomeScreen = () => {
           />
         </Animated.View>
       </TouchableOpacity>
-      <LanguageSelector selectedLanguage={outputLanguage} onSelectLanguage={handleOutputLanguageChange} />
+      <View style={styles.languageSelector}>
+        <LanguageSelector selectedLanguage={selectedLanguage} onSelectLanguage={handleLanguageChange} />
+      </View>
     </View>
   );
 };
@@ -79,6 +74,11 @@ const styles = StyleSheet.create({
   video: {
     borderRadius: 100,
     overflow: 'hidden',
+    top: 30,
+  },
+  languageSelector: {
+    position: 'absolute',
+    top: 60, // Adjust as needed
   },
 });
 
