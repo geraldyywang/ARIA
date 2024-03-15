@@ -14,7 +14,7 @@ export const textToSpeech: any = async (text: string, language: string) => {
 
     const response = await client.synthesizeSpeech(request);
     const audioBuffer = Buffer.from(response[0].audioContent as string);
-    writeFileSync("output.mp3", audioBuffer, "binary");
+    writeFileSync("../../test_audio/output.mp3", audioBuffer, "binary");
 
     return response[0].audioContent;
   } catch (error) {

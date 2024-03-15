@@ -12,7 +12,8 @@ export const generateResponse = async (
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant for refugees.",
+          content:
+            "You are a helpful assistant for refugees. Keep your responses within 2 sentences.",
         },
         { role: "user", content: `${translatedText}` },
       ],
