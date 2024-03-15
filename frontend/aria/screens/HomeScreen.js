@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Animated, Text, TextInput } from 'react-native';
 import { Video } from 'expo-av';
 import LanguageSelector from '../components/LanguageSelector';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
+import MaskedView from '@react-native-masked-view/masked-view';
 
 const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -44,6 +46,8 @@ const HomeScreen = () => {
     setSelectedLanguage(language);
   };
 
+  const [questionText, setQuestionText] = useState('');
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={togglePlay} activeOpacity={0.8}>
@@ -61,6 +65,35 @@ const HomeScreen = () => {
       <View style={styles.languageSelector}>
         <LanguageSelector selectedLanguage={selectedLanguage} onSelectLanguage={handleLanguageChange} />
       </View>
+      <View style={styles.questionContainer}>
+        <MaskedView maskElement={<Text style={styles.questionText}>ASK ARIA</Text>}>
+          <LinearGradient // Add LinearGradient here
+              colors={['#38c9ac', '#6a40e6']} // Gradient colors
+              start={[0, 0]} // Gradient start point
+              end={[1, 1]} // Gradient end point
+              style={styles.gradient} // Style for the gradient
+            >
+            <Text style={styles.questionTextMask}>ASK ARIA</Text>
+          </LinearGradient>
+        </MaskedView>
+        <View style={styles.inputFieldWrapper}>
+          <LinearGradient
+            colors={['#38c9ac', '#6a40e6']} // Gradient colors
+            start={[0, 0]} // Gradient start point
+            end={[1, 1]} // Gradient end point
+            style={styles.inputFieldGradient} // Style for the gradient
+          >
+            <TextInput
+              style={styles.inputField}
+              value={questionText}
+              onChangeText={setQuestionText}
+              placeholder="Question can be seen here"
+              placeholderTextColor="white" // Placeholder text color
+              selectionColor="white" // Selection color
+            />
+          </LinearGradient>
+        </View>
+      </View>
     </View>
   );
 };
@@ -70,6 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#c5e0da'
   },
   video: {
     borderRadius: 100,
@@ -79,6 +113,38 @@ const styles = StyleSheet.create({
   languageSelector: {
     position: 'absolute',
     top: 60, // Adjust as needed
+  },
+  questionContainer: {
+    marginTop: 20, // Adjust as needed
+    width: '90%',
+    top: 100,
+    alignItems: 'center',
+    position: 'absolute',
+  },
+  questionText: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  questionTextMask: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    opacity: 0,
+  },
+  inputFieldWrapper: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  inputFieldGradient: {
+    width: '90%',
+    borderRadius: 5,
+  },
+  inputField: {
+    width: '100%',
+    height: 40,
+    paddingHorizontal: 10,
+    color: 'white', // Text color
   },
 });
 

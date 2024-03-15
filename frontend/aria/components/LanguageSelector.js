@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 20, // Round the top-left corner
     borderTopRightRadius: 20, // Round the top-right corner
-    marginTop: 80,
+    marginTop: 120,
   },
   header: {
     flexDirection: 'row',
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   selectedLanguageOption: {
-    backgroundColor: 'lightblue', // Change background color for selected language
+    backgroundColor: '#aee8db', // Change background color for selected language
     borderRadius: 5,
   },
   languageFlag: {
