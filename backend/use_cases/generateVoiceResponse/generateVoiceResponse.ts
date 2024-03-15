@@ -1,17 +1,17 @@
 import { text } from "express";
 import { generateResponse } from "./generateResponse";
-import { translateSpeech } from "./translateSpeech";
+import { translateSpeechToEn } from "./translateSpeechToEn";
 import { textToSpeech } from "./textToSpeech";
 import { translateTextToOriginal } from "./translateTextToOriginal";
 
 export const generateVoiceResponse = async (
   language: string,
-  audioFile: any
-): Promise<any> => {
+  transcribedText: any
+): Promise<[string, any]> => {
   const apiKey: string | undefined = process.env.OPENAI_API_KEY;
 
   // translate audio file to text and translate
-  const translated: string = await translateSpeech(audioFile, language, apiKey);
+  const translated: string = await translateSpeechToEn(transcribedText);
   // take text and generate response
   let generatedResponse: string = await generateResponse(translated, apiKey);
 
@@ -24,10 +24,8 @@ export const generateVoiceResponse = async (
   }
 
   // take response and convert to audio file
-  const audioFileResponse: any = await textToSpeech(
-    generatedResponse,
-    language
-  );
+  const audioFileResponse: string | Uint8Array | null | undefined =
+    await textToSpeech(generatedResponse, language);
 
-  return audioFileResponse;
+  return [generatedResponse, audioFileResponse];
 };
