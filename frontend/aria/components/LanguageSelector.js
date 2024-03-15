@@ -1,4 +1,3 @@
-// LanguageSelector.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign icon
@@ -53,16 +52,16 @@ const LanguageSelector = ({ selectedLanguage, onSelectLanguage }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.separator} />
-          <ScrollView>
-            {languages.map((language) => (
-              <TouchableOpacity key={language.id} onPress={() => handleLanguageSelect(language)}>
-                <View style={[styles.languageOption, language.id === selectedLanguage.id && styles.selectedLanguageOption]}>
-                  <Text style={styles.languageFlag}>{language.flag}</Text>
-                  <Text style={styles.languageName}>{language.name}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+            <ScrollView contentContainerStyle={styles.scrollViewContent}>
+              {languages.map((language) => (
+                <TouchableOpacity key={language.id} onPress={() => handleLanguageSelect(language)}>
+                  <View style={[styles.languageOption, language.id === selectedLanguage.id && styles.selectedLanguageOption]}>
+                    <Text style={styles.languageFlag}>{language.flag}</Text>
+                    <Text style={styles.languageName}>{language.name}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
         </View>
       </Modal>
     </View>
@@ -80,28 +79,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#eee',
+    backgroundColor: 'rgb(56, 201, 172)',
+    borderRadius: 5,
   },
   languageText: {
     fontSize: 16,
     marginLeft: 5,
     marginRight: 5,
+    color: 'white',
+    fontWeight: 'bold',
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#fff',
-    padding: 20,
-    marginTop: 80,
     borderTopLeftRadius: 20, // Round the top-left corner
     borderTopRightRadius: 20, // Round the top-right corner
+    marginTop: 80,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
-    textAlign: 'center', // Center the text
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
   headerText: {
     fontSize: 18,
@@ -110,10 +111,13 @@ const styles = StyleSheet.create({
   separator: {
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    marginBottom: 10,
   },
   closeButton: {
     padding: 5,
+  },
+  scrollViewContent: {
+    paddingVertical: 20, // Add padding to the content
+    paddingHorizontal: 20,
   },
   languageOption: {
     flexDirection: 'row',
@@ -124,6 +128,7 @@ const styles = StyleSheet.create({
   },
   selectedLanguageOption: {
     backgroundColor: 'lightblue', // Change background color for selected language
+    borderRadius: 5,
   },
   languageFlag: {
     fontSize: 20, // Adjust size as needed
