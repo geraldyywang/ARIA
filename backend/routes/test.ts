@@ -1,6 +1,12 @@
-import express from "express";
+import express, { Express, Request, Response } from "express";
 const router = express.Router();
 
-router.get("/test", (req: any, res: any) => {
+router.get("/", (req: Request, res: Response) => {
   res.send("Hello from the backend!");
 });
+
+// router.get("/", (req: any, res: any) => {
+//   res.send("Hello from the backend!");
+// });
+
+module.exports = router;

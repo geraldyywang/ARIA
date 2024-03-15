@@ -1,4 +1,4 @@
-interface IVoiceResponse {
+export interface IVoiceResponse {
   generateVoiceResponse(
     language: string,
     transcribedText: any

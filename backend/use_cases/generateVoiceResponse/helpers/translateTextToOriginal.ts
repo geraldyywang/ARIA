@@ -7,8 +7,14 @@ export const translateTextToOriginal = async (
   language: string
 ): Promise<string> => {
   // translate text to original language with Google Translate API
-  let [translations] = await translate.translate(text, language);
-  console.log(`Translated text before send to audio ${translations}`);
+  try {
+    console.log(text, language);
+    let [translations] = await translate.translate(text, language);
+    console.log(`Translated text before send to audio ${translations}`);
 
-  return translations;
+    return translations;
+  } catch (error) {
+    console.error(error);
+    return "Error translating text to original language.";
+  }
 };

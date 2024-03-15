@@ -5,11 +5,15 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json());
 
-const generateRoute = require("./routes/generate");
-const testRoute = require("./routes/test");
+app.get("/", (req: Request, res: Response) => {
+  res.send("Base URL");
+});
 
+const generateRoute = require("./routes/generate");
 app.use("/generate", generateRoute);
-app.use("/test", testRoute);
+
+const test = require("./routes/test");
+app.use("/test", test);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
