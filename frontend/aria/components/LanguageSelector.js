@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   selectedLanguageOption: {
-    backgroundColor: 'lightblue', // Change background color for selected language
+    backgroundColor: 'rgb(56, 201, 172)', // Change background color for selected language
   },
   languageFlag: {
     fontSize: 20, // Adjust size as needed
