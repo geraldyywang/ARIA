@@ -29,12 +29,8 @@ const HomeScreen = () => {
     "My answer to your question will be here."
   );
   const [answerAudioFile, setAnswerAudioFile] = useState(null);
-  const [fileWritten, setFileWritten] = useState(false);
-
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]); // state to manage recordings
-
-  const [sound, setSound] = useState();
 
   // State for selected language
   const [selectedLanguage, setSelectedLanguage] = useState({
@@ -49,14 +45,6 @@ const HomeScreen = () => {
   // Function to handle language change
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
-  };
-
-  const playSounds = async () => {
-    console.log(answerAudioFile == null);
-    const { sound } = await Audio.Sound.createAsync({
-      uri: `data:audio/mp3;base64,${answerAudioFile}`,
-    });
-    await sound.playAsync();
   };
 
   async function playSound() {
@@ -92,16 +80,30 @@ const HomeScreen = () => {
     }
   }, [answerAudioFile]);
 
-  const apiTest = async () => {
-    axios
-      .get("http://192.168.137.1:3001/test")
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  useEffect(() => {
+    try {
+      if (
+        questionText !==
+        "Hi! I'm Aria. Tap on me to ask a question, and it will be shown here. Pick any language to speak in."
+      ) {
+        processVoiceResponse(questionText, selectedLanguage);
+        console.log("processing...");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [questionText]);
+
+  // const apiTest = async () => {
+  //   axios
+  //     .get("http://192.168.137.1:3001/test")
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const processVoiceResponse = async (questionText, language) => {
     let languageCode = language.code;
@@ -117,11 +119,8 @@ const HomeScreen = () => {
       })
       .then(
         (response) => {
-          // console.log(response.data);
           setAnswerText(response.data[0]);
           setAnswerAudioFile(response.data[1]);
-          console.log(response.data[0]);
-          // console.log(answerAudioFile);
 
           // setPrevQnA(
           //   prevQnA.concat({
@@ -129,15 +128,6 @@ const HomeScreen = () => {
           //     answer: response[0],
           //   })
           // );
-          // RNFS.writeFile("output.mp3", answerAudioFile, "base64")
-          //   .then(() => {
-          //     setFileWritten(true);
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //   });
-
-          // console.log("mp3???", response);
         },
         (error) => {
           console.log(error);
@@ -188,13 +178,6 @@ const HomeScreen = () => {
       setQuestionText(transcription); // Update the question text with transcription
     } catch (error) {
       console.error("Error transcribing audio:", error);
-    }
-
-    try {
-      await processVoiceResponse(questionText, selectedLanguage);
-      console.log("processing...");
-    } catch (error) {
-      console.log(error);
     }
   }
 
