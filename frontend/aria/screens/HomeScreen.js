@@ -8,7 +8,7 @@ import {PrevQnAContext} from '../App';
 
 const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [videoSize, setVideoSize] = useState(new Animated.Value(160));
+  const [videoSize, setVideoSize] = useState(new Animated.Value(170));
   const videoRef = useRef(null);
   const [questionText, setQuestionText] = useState("Hi! I'm Aria. Tap on me to ask a question, and it will be shown here. Pick any language to speak in.");
   const [answerText, setAnswerText] = useState('My answer to your question will be here.');
@@ -130,7 +130,7 @@ const HomeScreen = () => {
     const toggleSize = () => {
       Animated.sequence([
         Animated.timing(videoSize, {
-          toValue: 160,
+          toValue: 170,
           duration: 600, // Adjust the duration as needed
           useNativeDriver: false,
         }),
