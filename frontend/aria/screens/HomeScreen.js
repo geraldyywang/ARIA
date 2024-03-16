@@ -13,10 +13,9 @@ import { Video, Audio } from "expo-av";
 import LanguageSelector from "../components/LanguageSelector";
 import { transcribeAudio } from "../openai/Transcribe";
 import * as FileSystem from "expo-file-system";
-import { PrevQnAContext } from "../App";
+// import { PrevQnAContext } from "../App";
 import axios from "axios";
 axios.defaults.timeout = 15000;
-// var RNFS = require("react-native-fs");
 
 const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -25,9 +24,7 @@ const HomeScreen = () => {
   const [questionText, setQuestionText] = useState(
     "Hi! I'm Aria. Tap on me to ask a question, and it will be shown here. Pick any language to speak in."
   );
-  const [answerText, setAnswerText] = useState(
-    "My answer to your question will be here."
-  );
+  const [answerText, setAnswerText] = useState("");
   const [answerAudioFile, setAnswerAudioFile] = useState(null);
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]); // state to manage recordings
@@ -40,7 +37,7 @@ const HomeScreen = () => {
     code: "en",
   });
 
-  // const {prevQnA, setPrevQnA} = useContext(PrevQnAContext);
+  // const { prevQnA, setPrevQnA } = useContext(PrevQnAContext);
 
   // Function to handle language change
   const handleLanguageChange = (language) => {
@@ -174,7 +171,11 @@ const HomeScreen = () => {
         type: "audio/mp4",
         name: "recording.m4a",
       };
-      const transcription = await transcribeAudio(fileInfo, "whisper-1", "en");
+      const transcription = await transcribeAudio(
+        fileInfo,
+        "whisper-1",
+        selectedLanguage.code
+      );
       setQuestionText(transcription); // Update the question text with transcription
     } catch (error) {
       console.error("Error transcribing audio:", error);
