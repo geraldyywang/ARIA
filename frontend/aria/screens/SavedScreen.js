@@ -1,11 +1,15 @@
 // SavedScreen.js
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {useContext} from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 
 const SavedScreen = () => {
+  // const {prevQnA, setPrevQnA} = useContext(PrevQnAContext);
+
   return (
     <View style={styles.container}>
       <Text>Saved Screen</Text>
+
+      
     </View>
   );
 };

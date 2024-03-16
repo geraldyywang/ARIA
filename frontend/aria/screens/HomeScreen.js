@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { View, StyleSheet, TouchableOpacity, Animated, Text, Keyboard, Button, ScrollView } from 'react-native';
 import { Video, Audio } from 'expo-av';
 import LanguageSelector from '../components/LanguageSelector';
 import { transcribeAudio } from '../openai/Transcribe';
 import { FileSystem } from 'expo';
-
+import {PrevQnAContext} from '../App';
 
 const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -12,11 +12,41 @@ const HomeScreen = () => {
   const videoRef = useRef(null);
   const [questionText, setQuestionText] = useState("Hi! I'm Aria. Tap on me to ask a question, and it will be shown here. Pick any language to speak in.");
   const [answerText, setAnswerText] = useState('My answer to your question will be here.');
-
+  const [answerAudioFile, setAnswerAudioFile] = useState(null);
 
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]); // state to manage recordings
 
+  // State for selected language
+  const [selectedLanguage, setSelectedLanguage] = useState({ id: 1, name: 'English', flag: '🇺🇸', code: 'en'});
+
+  // const {prevQnA, setPrevQnA} = useContext(PrevQnAContext);
+
+  // Function to handle language change
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+  };
+
+  const processVoiceResponse = async (questionText, language) => {
+    let languageCode = language.code;
+
+    axios.post('/login', {
+      language: languageCode,
+      transcribedText: questionText
+    }).then((response) => {
+      setAnswerText(response[0]);
+      setAnswerAudioFile(response[1]);
+
+      setPrevQnA(prevQnA.concat({
+        question: questionText,
+        answer: response[0],
+      }))
+
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
   async function startRecording() {
     try {
@@ -121,6 +151,8 @@ const HomeScreen = () => {
     } else {
       videoSize.setValue(130);
     }
+
+    
   }, [isPlaying]);
 
   // Function to handle submitting text
@@ -130,13 +162,7 @@ const HomeScreen = () => {
     console.log('Question submitted:', questionText);
   };
 
-  // State for selected language
-  const [selectedLanguage, setSelectedLanguage] = useState({ id: 1, name: 'English', flag: '🇺🇸' });
-
-  // Function to handle language change
-  const handleLanguageChange = (language) => {
-    setSelectedLanguage(language);
-  };
+  
 
   return (
     <View style={styles.container}>
@@ -144,10 +170,11 @@ const HomeScreen = () => {
         <Animated.View style={[styles.video, { width: videoSize, height: videoSize }]}>
           <Video
             ref={videoRef}
+            rate={isPlaying ? 1.5 : 0.5} // Adjust the rate based on isPlaying state
             source={require('../assets/aria.mp4')} // Provide the correct path to your local video file
             style={StyleSheet.absoluteFillObject}
             resizeMode="cover"
-            shouldPlay={isPlaying}
+            shouldPlay={true}
             isLooping
           />
         </Animated.View>
@@ -228,6 +255,8 @@ const styles = StyleSheet.create({
     borderRadius: 500,
     overflow: 'hidden',
     top: 0,
+    borderWidth: 5,
+    borderColor: "rgb(56, 201, 172)",
   },
   languageSelector: {
     position: 'absolute',
