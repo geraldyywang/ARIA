@@ -17,7 +17,7 @@ export const generateResponse = async (
         },
         { role: "user", content: `${translatedText}` },
       ],
-      model: "gpt-3.5-turbo",
+      model: "ft:gpt-3.5-turbo-0125:personal:aria:93Ru3VG0",
     });
 
     const response: string | null = completion.choices[0].message.content;

@@ -336,13 +336,13 @@ const HomeScreen = () => {
         </ScrollView>
       </View>
 
-      <View style={styles.recordingContainer}>
+      {/* <View style={styles.recordingContainer}>
         {getRecordingLines()}
         <Button
           title={recordings.length > 0 ? "Clear Questions" : ""}
           onPress={clearRecordings}
         />
-      </View>
+      </View> */}
     </View>
   );
 };
