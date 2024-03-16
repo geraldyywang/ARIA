@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#c5e0da'
+    backgroundColor: 'white'
   },
   recordingContainer: {
     position: 'absolute',
@@ -276,13 +276,13 @@ const styles = StyleSheet.create({
   questionRoundBorder: {
     width: '90%',
     height: 125,
-    backgroundColor: 'white',
+    backgroundColor: '#c5e0da',
     borderRadius: 10,
   },
   answerRoundBorder: {
     width: '90%',
     height: 215,
-    backgroundColor: 'white',
+    backgroundColor: '#c5e0da',
     borderRadius: 10,
   }
 });
