@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Animated, Text, TextInput, Keyboard, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Animated, Text, Keyboard, Button, ScrollView } from 'react-native';
 import { Video, Audio } from 'expo-av';
 import LanguageSelector from '../components/LanguageSelector';
 import { transcribeAudio } from '../openai/Transcribe';
@@ -8,9 +8,11 @@ import { FileSystem } from 'expo';
 
 const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [videoSize, setVideoSize] = useState(new Animated.Value(100));
+  const [videoSize, setVideoSize] = useState(new Animated.Value(160));
   const videoRef = useRef(null);
-  const [questionText, setQuestionText] = useState('');
+  const [questionText, setQuestionText] = useState("Hi! I'm Aria. Tap on me to ask a question, and it will be shown here. Pick any language to speak in.");
+  const [answerText, setAnswerText] = useState('My answer to your question will be here.');
+
 
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]); // state to manage recordings
@@ -98,12 +100,12 @@ const HomeScreen = () => {
     const toggleSize = () => {
       Animated.sequence([
         Animated.timing(videoSize, {
-          toValue: 125,
+          toValue: 160,
           duration: 600, // Adjust the duration as needed
           useNativeDriver: false,
         }),
         Animated.timing(videoSize, {
-          toValue: 100,
+          toValue: 130,
           duration: 600, // Adjust the duration as needed
           useNativeDriver: false,
         }),
@@ -117,7 +119,7 @@ const HomeScreen = () => {
     if (isPlaying) {
       toggleSize();
     } else {
-      videoSize.setValue(100);
+      videoSize.setValue(130);
     }
   }, [isPlaying]);
 
@@ -155,32 +157,33 @@ const HomeScreen = () => {
       </View>
       <View style={styles.questionContainer}>
         <Text style={styles.questionText}>QUESTION</Text>
-        <View style={styles.questionRoundBorder}>
+        <ScrollView style={styles.questionRoundBorder}>
           <Text
             style={[styles.questionField, { height: 'auto' }]} // Set height to 'auto' for dynamic height
             numberOfLines={5} // Adjust based on your preference
             multiline={true}
             textAlignVertical="top" // Adjusts text alignment to top
           >
-            {/* {questionText} */}
-            How long do I have to complete my Basis of Claim Form?
+            {questionText}
+            {/* What language can I use to complete my Basis of Claim Form? What language can I use to complete my? */}
           </Text>
-        </View>
+        </ScrollView>
       </View>
 
       <View style={styles.answerContainer}>
         <View >
             <Text style={styles.questionText}>ANSWER</Text>
         </View>
-        <View style={styles.answerRoundBorder}>
+        <ScrollView style={styles.answerRoundBorder}>
             <Text
             style={styles.answerField} // Set height to 'auto' for dynamic height
             multiline={true}
             textAlignVertical="top" // Adjusts text alignment to top
           >
-            {/* {questionText} */}
-            If you made your claim at a port of entry, you have 15 days after your claim is sent to the Refugee Protection Division to submit your Basis of Claim Form. If you made your claim at an inland office, provide it on the day of your eligibility interview.          </Text>
-        </View>
+            {answerText}
+            {/* If you made your claim at a port of entry, you have 15 days after your claim is sent to the Refugee Protection Division to submit your Basis of Claim Form. If you made your claim at an inland office, provide it on the day of your eligibility interview. Test this is just more text that I am adding, does it work i guess it does a             */}
+            </Text>
+        </ScrollView>
       </View>
 
       <View style={styles.recordingContainer}>
@@ -222,9 +225,9 @@ const styles = StyleSheet.create({
     margin: 15
   },
   video: {
-    borderRadius: 100,
+    borderRadius: 500,
     overflow: 'hidden',
-    top: 40,
+    top: 0,
   },
   languageSelector: {
     position: 'absolute',
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
   },
   answerContainer: {
     width: '100%',
-    bottom: 40,
+    bottom: 35,
     alignItems: 'center',
     position: 'absolute',
   },
@@ -251,12 +254,12 @@ const styles = StyleSheet.create({
   },
   questionField: {
     width: '100%',
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: 20,
+    lineHeight: 28,
     paddingHorizontal: 20,
     paddingVertical: 20,
     color: 'black', // Text color
-    textAlign: 'left', // Center the text horizontally
+    textAlign: 'center', // Center the text horizontally
     textAlignVertical: 'top',
   },
   answerField: {
@@ -267,20 +270,20 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     color: 'black', // Text color
     borderRadius: 5,
-    textAlign: 'left', // Center the text horizontally
+    textAlign: 'center', // Center the text horizontally
     textAlignVertical: 'top',
   },
   questionRoundBorder: {
     width: '90%',
-    height: 200,
+    height: 125,
     backgroundColor: 'white',
-    borderRadius: 4,
+    borderRadius: 10,
   },
   answerRoundBorder: {
     width: '90%',
-    height: 210,
+    height: 215,
     backgroundColor: 'white',
-    borderRadius: 4,
+    borderRadius: 10,
   }
 });
 
