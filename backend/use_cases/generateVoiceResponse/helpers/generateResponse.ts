@@ -21,8 +21,8 @@ export const generateResponse = async (
     });
 
     const response: string | null = completion.choices[0].message.content;
-    const tokensUsed: number | undefined = completion.usage?.total_tokens;
-    console.log(response, tokensUsed);
+    // const tokensUsed: number | undefined = completion.usage?.total_tokens;
+    // console.log(response, tokensUsed);
 
     return response ? response : "No response generated.";
   } catch (error) {
