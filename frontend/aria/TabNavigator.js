@@ -34,20 +34,20 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Saved"
+        name="History"
         component={SavedScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="star" color={color} size={size} />
+            <AntDesign name="clockcircleo" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Settings"
+        name="Resources"
         component={SettingsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="setting" color={color} size={size} />
+            <AntDesign name="book" color={color} size={size} />
           ),
         }}
       />
