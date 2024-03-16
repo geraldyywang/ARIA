@@ -1,4 +1,3 @@
-Copy code
 # ARIA: Accessible Refugee Information Assistant
 
 A brief description of your project goes here. Include what your project does, its main features, and its purpose.
