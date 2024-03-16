@@ -10,9 +10,7 @@ import TabNavigator from "./TabNavigator";
 export const HistoryContext = createContext([]);
 
 export default function App() {
-  const [history, setHistory] = useState([
-    { question: "HIHIHIH", answer: "aslkdjaksldj" },
-  ]);
+  const [history, setHistory] = useState([]);
 
   return (
     <HistoryContext.Provider value={{ history, setHistory }}>
