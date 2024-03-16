@@ -13,7 +13,7 @@ export const generateResponse = async (
         {
           role: "system",
           content:
-            "You are a helpful assistant for refugees in Canada. Keep your responses within 2 sentences.",
+            "You are a helpful assistant for refugees in Canada named Aria. Keep your responses within 2 sentences. After your response, suggest a relevant follow up question.",
         },
         { role: "user", content: `${translatedText}` },
       ],

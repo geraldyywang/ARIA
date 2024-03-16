@@ -13,7 +13,7 @@ import { Video, Audio } from "expo-av";
 import LanguageSelector from "../components/LanguageSelector";
 import { transcribeAudio } from "../openai/Transcribe";
 import * as FileSystem from "expo-file-system";
-// import { PrevQnAContext } from "../App";
+import { HistoryContext } from "../App";
 import axios from "axios";
 axios.defaults.timeout = 15000;
 
@@ -24,7 +24,9 @@ const HomeScreen = () => {
   const [questionText, setQuestionText] = useState(
     "Hi! I'm Aria. Tap on me to ask a question, and it will be shown here. Pick any language to speak in."
   );
-  const [answerText, setAnswerText] = useState("");
+  const [answerText, setAnswerText] = useState(
+    "The answer will show up here. Example Questions: Can I make a refugee claim? What are my responsibilities? When can my family come to Canada?"
+  );
   const [answerAudioFile, setAnswerAudioFile] = useState(null);
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]); // state to manage recordings
@@ -37,7 +39,7 @@ const HomeScreen = () => {
     code: "en",
   });
 
-  // const { prevQnA, setPrevQnA } = useContext(PrevQnAContext);
+  const { history, setHistory } = useContext(HistoryContext);
 
   // Function to handle language change
   const handleLanguageChange = (language) => {
@@ -137,12 +139,13 @@ const HomeScreen = () => {
           setAnswerText(response.data[0]);
           setAnswerAudioFile(response.data[1]);
 
-          // setPrevQnA(
-          //   prevQnA.concat({
-          //     question: questionText,
-          //     answer: response[0],
-          //   })
-          // );
+          setHistory(
+            history.concat({
+              question: questionText,
+              answer: response.data[0],
+            })
+          );
+          console.log("history", history);
         },
         (error) => {
           console.log(error);

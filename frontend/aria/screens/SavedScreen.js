@@ -1,13 +1,24 @@
 // SavedScreen.js
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { HistoryContext } from "../App";
+import { HistoryCard } from "../components/HistoryCard";
 
 const SavedScreen = () => {
-  // const { prevQnA, setPrevQnA } = useContext(PrevQnAContext);
+  const { history, setHistory } = useContext(HistoryContext);
 
   return (
     <View style={styles.container}>
-      <Text>Saved Screen</Text>
+      <FlatList
+        data={history}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.question}</Text>
+            <Text>{item.answer}</Text>
+          </View>
+        )}
+        contentContainerStyle={{ paddingTop: 20 }}
+      />
     </View>
   );
 };
