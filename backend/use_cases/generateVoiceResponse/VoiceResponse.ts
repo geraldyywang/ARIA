@@ -27,9 +27,19 @@ export class VoiceResponse implements IVoiceResponse {
     }
 
     // // take response and convert to audio file
-    const audioFileResponse: string | Uint8Array | null | undefined =
-      await textToSpeech(generatedResponse, language);
+    const audioFileResponse: Uint8Array = await textToSpeech(
+      generatedResponse,
+      language
+    );
 
-    return [generatedResponse, audioFileResponse];
+    let binaryString = "";
+    audioFileResponse.forEach((byte: any) => {
+      binaryString += String.fromCharCode(byte);
+    });
+
+    // Encode the binary string to base64
+    const base64String = btoa(binaryString);
+
+    return [generatedResponse, base64String];
   };
 }

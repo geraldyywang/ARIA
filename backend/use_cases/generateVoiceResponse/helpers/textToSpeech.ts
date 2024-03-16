@@ -29,7 +29,7 @@ export const textToSpeech: any = async (text: string, language: string) => {
     const audioBuffer = Buffer.from(response[0].audioContent as string);
     writeFileSync("output.mp3", audioBuffer, "binary");
 
-    // console.log(response[0].audioContent);
+    console.log(response[0].audioContent);
 
     return response[0].audioContent;
   } catch (error) {

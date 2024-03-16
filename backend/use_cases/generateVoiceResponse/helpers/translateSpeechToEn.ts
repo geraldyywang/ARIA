@@ -9,7 +9,7 @@ export const translateSpeechToEn = async (
   // translate audio file to text
   try {
     let [translations] = await translate.translate(transcribedText, "en");
-    // console.log(translations);
+    console.log(translations);
 
     return translations;
   } catch (error) {
