@@ -12,8 +12,19 @@ const SavedScreen = () => {
       <FlatList
         data={history}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.question}</Text>
+          <View
+            style={{
+              padding: 10,
+              margin: 5,
+              backgroundColor: "white",
+              borderRadius: 10,
+            }}
+          >
+            <Text
+              style={{ fontSize: 20, paddingBottom: 5, fontWeight: "bold" }}
+            >
+              {item.question}
+            </Text>
             <Text>{item.answer}</Text>
           </View>
         )}
