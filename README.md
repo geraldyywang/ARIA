@@ -1,6 +1,9 @@
 # ARIA: Accessible Refugee Information Assistant
 
-A brief description of your project goes here. Include what your project does, its main features, and its purpose.
+![aria phones (1)](https://github.com/geraldyywang/ARIA/assets/152770271/2c2c4ed8-fc44-4e01-9c86-f3da7e35dfe5)
+![Architecture (1)](https://github.com/geraldyywang/ARIA/assets/152770271/88a32b2d-93da-4f68-9f6e-4d0443abc3f9)
+
+A Refugee Illumination App. Helping refugees understand the claimant process in Canada, with the help of a multilingual voice assistant, and fine tuned large language model.
 
 ## Table of Contents
 
