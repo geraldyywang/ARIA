@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { createContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -7,21 +7,22 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import TabNavigator from "./TabNavigator";
 
-// export const PrevQnAContext = createContext({
-//   prevQnA: [],
-//   setPrevQnA: () => {},
-// });
+export const HistoryContext = createContext([]);
 
 export default function App() {
+  const [history, setHistory] = useState([
+    { question: "HIHIHIH", answer: "aslkdjaksldj" },
+  ]);
+
   return (
-    // <PrevQnAContext.Provider value={{ prevQnA, setPrevQnA }}>
-    <NavigationContainer>
-      <View style={styles.container}>
-        <TabNavigator />
-        <StatusBar style="auto" />
-      </View>
-    </NavigationContainer>
-    // </PrevQnAContext.Provider>
+    <HistoryContext.Provider value={{ history, setHistory }}>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <TabNavigator />
+          <StatusBar style="auto" />
+        </View>
+      </NavigationContainer>
+    </HistoryContext.Provider>
   );
 }
 

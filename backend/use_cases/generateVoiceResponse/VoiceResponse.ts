@@ -32,7 +32,11 @@ export class VoiceResponse implements IVoiceResponse {
       language
     );
 
-    let binaryString = "";
+    // for (let i = 0; i < audioFileResponse.length; ++i) {
+    //   audioFileResponse[i] *= 2;
+    // }
+
+    let binaryString: string = "";
     audioFileResponse.forEach((byte: any) => {
       binaryString += String.fromCharCode(byte);
     });
