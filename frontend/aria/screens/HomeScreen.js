@@ -44,6 +44,24 @@ const HomeScreen = () => {
     setSelectedLanguage(language);
   };
 
+  useEffect(() => {
+    (async () => {
+      Audio.requestPermissionsAsync().then(({ granted }) => {
+        if (granted) {
+          Audio.setAudioModeAsync({
+            allowsRecordingIOS: true,
+            interruptionModeIOS: InterruptionModeIOS.DoNotMix,
+            playsInSilentModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+            playThroughEarpieceAndroid: false,
+            staysActiveInBackground: true,
+          });
+        }
+      });
+    })();
+  }, []);
+
   async function playSound() {
     try {
       const filePath = FileSystem.documentDirectory + "audio.mp3";
@@ -149,6 +167,12 @@ const HomeScreen = () => {
   }
 
   async function stopRecording() {
+    const perm = await Audio.requestPermissionsAsync();
+    if (perm.status === "granted") {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+      });
+    }
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
     const recordingURI = recording.getURI(); // Get the URI of the recorded audio
