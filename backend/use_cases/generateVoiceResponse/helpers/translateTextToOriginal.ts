@@ -10,7 +10,7 @@ export const translateTextToOriginal = async (
   try {
     console.log(text, language);
     let [translations] = await translate.translate(text, language);
-    console.log(`Translated text before send to audio ${translations}`);
+    // console.log(`Translated text before send to audio ${translations}`);
 
     return translations;
   } catch (error) {

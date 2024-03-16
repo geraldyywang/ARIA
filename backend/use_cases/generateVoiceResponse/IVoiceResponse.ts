@@ -1,6 +1,6 @@
 export interface IVoiceResponse {
   generateVoiceResponse(
     language: string,
-    transcribedText: any
+    transcribedText: string
   ): Promise<[string, any]>;
 }
