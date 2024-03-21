@@ -7,7 +7,7 @@
 
 import axios from 'axios';
 
-const API_KEY = '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';
+const API_KEY = process.env.OPENAI_API_KEY;
 const API_ENDPOINT = 'https://api.openai.com/v1/audio/transcriptions';
 
 const transcribeAudio = async (audioFile, modelName, language) => {

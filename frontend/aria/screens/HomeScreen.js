@@ -130,6 +130,7 @@ const HomeScreen = () => {
     console.log("before axios process");
     console.log(languageCode, questionText);
     axios
+      // replace with my ip
       .post("http://192.168.137.1:3001/generate", {
         language: languageCode,
         transcribedText: questionText,
