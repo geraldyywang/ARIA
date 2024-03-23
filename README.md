@@ -7,13 +7,11 @@ Accessible Refugee Information Assistant. Helping refugees understand the claima
 
 ## Table of Contents
 
-- [Project Title](#project-title)
+- ARIA: Accessible Refugee Information Assistant
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
   - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
   - [License](#license)
 
 ## Introduction
@@ -26,10 +24,34 @@ List the main features of your project. This could include functionalities, tool
 
 ## Installation
 
-Provide step-by-step instructions on how to install your project. Include any prerequisites, dependencies, or setup requirements.
+Prerequisites: 
+1. Google ADC authentication
+2. Google Cloud Platform project with TTS and Translation APIs enabled
+3. OpenAI key
+   
+Dependencies:
+1. Node.js
+2. [Expo](https://docs.expo.dev/get-started/installation/)
+3. ts-node
+   
+Setup requirements:
+1. Create 2 .env files, one in /backend and one in /frontend/aria. In both, create an environment variable named ```OPENAI_API_KEY``` and set it to your OpenAI key. In the backend, move your GCP project key to the root folder, name it "aria_google.json" and set up the environment variable ```GOOGLE_APPLICATION_CREDENTIALS='aria_google.json'```. In the frontend, create and set ```BACKEND_URL``` to your IPv4 address at port 3000.
 
 ```bash
-# Example installation steps
-git clone https://github.com/your_username/your_project.git
-cd your_project
+# Installation steps
+git clone https://github.com/geraldyywang/ARIA.git
+cd ARIA/frontend/aria
 npm install
+cd ..
+cd ..
+cd backend
+yarn install
+
+```
+```bash
+# Running in dev
+# in frontend/aria
+npx expo start
+# in backend
+npm run dev
+```
