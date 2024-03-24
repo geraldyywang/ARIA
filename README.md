@@ -4,6 +4,7 @@
 
 
 https://github.com/geraldyywang/ARIA/assets/152770271/adba8220-f923-44e3-b6f9-4f6687e2dacb
+
 ![aria phones (1)](https://github.com/geraldyywang/ARIA/assets/152770271/2c2c4ed8-fc44-4e01-9c86-f3da7e35dfe5)
 ![Architecture (1)](https://github.com/geraldyywang/ARIA/assets/152770271/88a32b2d-93da-4f68-9f6e-4d0443abc3f9)
 
